@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenGLESAndroid", "OpenGLESAndroid", "{22A0A514-E7E5-4F7F-BABD-E1B4D8D0EDD5}"
+EndProject
+Project("{39E2626F-3545-4960-A6E8-258AD8476CE5}") = "OpenGLESAndroid.Android.Packaging", "OpenGLESAndroid\OpenGLESAndroid.Android.Packaging\OpenGLESAndroid.Android.Packaging.androidproj", "{5EBD2031-3EBC-48BD-BB04-08F111588FAC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{F007E957-06E9-479E-80ED-9DAA7E75696A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGLESAndroid.Android.NativeActivity", "OpenGLESAndroid\OpenGLESAndroid.Android.NativeActivity\OpenGLESAndroid.Android.NativeActivity.vcxproj", "{19EFC15C-5644-4E22-B8B9-35CFB1EFC34E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC}.Debug|ARM.ActiveCfg = Debug|ARM
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC}.Debug|ARM.Build.0 = Debug|ARM
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC}.Debug|ARM.Deploy.0 = Debug|ARM
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC}.Debug|x86.ActiveCfg = Debug|x86
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC}.Debug|x86.Build.0 = Debug|x86
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC}.Debug|x86.Deploy.0 = Debug|x86
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC}.Release|ARM.ActiveCfg = Release|ARM
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC}.Release|ARM.Build.0 = Release|ARM
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC}.Release|ARM.Deploy.0 = Release|ARM
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC}.Release|x86.ActiveCfg = Release|x86
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC}.Release|x86.Build.0 = Release|x86
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC}.Release|x86.Deploy.0 = Release|x86
+		{19EFC15C-5644-4E22-B8B9-35CFB1EFC34E}.Debug|ARM.ActiveCfg = Debug|ARM
+		{19EFC15C-5644-4E22-B8B9-35CFB1EFC34E}.Debug|ARM.Build.0 = Debug|ARM
+		{19EFC15C-5644-4E22-B8B9-35CFB1EFC34E}.Debug|x86.ActiveCfg = Debug|x86
+		{19EFC15C-5644-4E22-B8B9-35CFB1EFC34E}.Debug|x86.Build.0 = Debug|x86
+		{19EFC15C-5644-4E22-B8B9-35CFB1EFC34E}.Release|ARM.ActiveCfg = Release|ARM
+		{19EFC15C-5644-4E22-B8B9-35CFB1EFC34E}.Release|ARM.Build.0 = Release|ARM
+		{19EFC15C-5644-4E22-B8B9-35CFB1EFC34E}.Release|x86.ActiveCfg = Release|x86
+		{19EFC15C-5644-4E22-B8B9-35CFB1EFC34E}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5EBD2031-3EBC-48BD-BB04-08F111588FAC} = {22A0A514-E7E5-4F7F-BABD-E1B4D8D0EDD5}
+		{F007E957-06E9-479E-80ED-9DAA7E75696A} = {22A0A514-E7E5-4F7F-BABD-E1B4D8D0EDD5}
+		{19EFC15C-5644-4E22-B8B9-35CFB1EFC34E} = {F007E957-06E9-479E-80ED-9DAA7E75696A}
+	EndGlobalSection
+EndGlobal
