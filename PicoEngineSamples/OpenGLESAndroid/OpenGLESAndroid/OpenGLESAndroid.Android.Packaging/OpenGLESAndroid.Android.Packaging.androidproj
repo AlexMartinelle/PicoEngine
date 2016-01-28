@@ -66,6 +66,8 @@
     <Content Include="assets\pico.png" />
     <Content Include="assets\picocube.mtl" />
     <Content Include="assets\picocube.obj" />
+    <Content Include="assets\powerup.wav" />
+    <Content Include="assets\trudelutt2.ogg" />
     <Content Include="res\values\strings.xml" />
     <AntBuildXml Include="build.xml" />
     <AndroidManifest Include="AndroidManifest.xml" />

@@ -67,6 +67,8 @@ int main()
 
 	//The example...
 	CogitareComputing::Pico::Engine engine("LD33", 640, 480, 60, vs, fs, CogitareComputing::Pico::SystemSpecificData());
+	engine.PlayOggMusic("trudelutt2.ogg", false);
+	auto sound = engine.GetSound("powerup.wav");
 	auto msh = engine.LoadMesh("picocube.obj");
 	auto gob = std::make_shared<Sample::MoveableGameObject>(msh);
 	engine.AddGameObject(gob);	
@@ -74,7 +76,7 @@ int main()
 	gob->SetPosition(CogitareComputing::Pico::Vec3(0.0f, 0.0f, 2.0f));
 	engine.SetLight(CogitareComputing::Pico::Vec3(1.0f, 1.0f, 1.0f));
 	auto angle = 0.0f;
-	engine.Run([&engine, &gob, &angle](double elapsed)
+	engine.Run([&engine, &gob, &sound, &angle](double elapsed)
 	{
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -84,6 +86,8 @@ int main()
 			gob->MoveObject(CogitareComputing::Pico::Vec3(-0.1f, 0.0f, 0.0f));
 		if (engine.IsKeyDown('D'))
 			gob->MoveObject(CogitareComputing::Pico::Vec3(0.1f, 0.0f, 0.0f));
+		if (engine.IsKeyDown('S'))
+			sound->Play(false);
 
 		gob->SetRotation(CogitareComputing::Pico::Vec3(angle, angle, angle));
 		angle += 0.1f;

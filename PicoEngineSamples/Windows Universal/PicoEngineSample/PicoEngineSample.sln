@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{667B7E3C-29E4-4743-A269-3D123949DBC8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PicoEngineSample.Shared", "PicoEngineSample\PicoEngineSample.Shared\PicoEngineSample.Shared.vcxitems", "{16B254B4-C8A5-4285-ADF1-FA157752F918}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PicoEngineSample.WindowsUniversal.StaticLibrary", "PicoEngineSample\PicoEngineSample.WindowsUniversal.StaticLibrary\PicoEngineSample.WindowsUniversal.StaticLibrary.vcxproj", "{0513725B-BFDE-4D06-A971-D6AB3C0824B1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PicoEngineSample.WindowsUniversal.Application", "PicoEngineSample\PicoEngineSample.WindowsUniversal.Application\PicoEngineSample.WindowsUniversal.Application.vcxproj", "{0996493E-47A8-4622-A246-6AD403A4AE6C}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		PicoEngineSample\PicoEngineSample.Shared\PicoEngineSample.Shared.vcxitems*{16b254b4-c8a5-4285-adf1-fa157752f918}*SharedItemsImports = 9
+		PicoEngineSample\PicoEngineSample.Shared\PicoEngineSample.Shared.vcxitems*{0513725b-bfde-4d06-a971-d6ab3c0824b1}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1}.Debug|ARM.ActiveCfg = Debug|ARM
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1}.Debug|ARM.Build.0 = Debug|ARM
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1}.Debug|x64.ActiveCfg = Debug|x64
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1}.Debug|x64.Build.0 = Debug|x64
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1}.Debug|x86.ActiveCfg = Debug|Win32
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1}.Debug|x86.Build.0 = Debug|Win32
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1}.Release|ARM.ActiveCfg = Release|ARM
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1}.Release|ARM.Build.0 = Release|ARM
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1}.Release|x64.ActiveCfg = Release|x64
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1}.Release|x64.Build.0 = Release|x64
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1}.Release|x86.ActiveCfg = Release|Win32
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1}.Release|x86.Build.0 = Release|Win32
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Debug|ARM.ActiveCfg = Debug|ARM
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Debug|ARM.Build.0 = Debug|ARM
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Debug|ARM.Deploy.0 = Debug|ARM
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Debug|x64.ActiveCfg = Debug|x64
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Debug|x64.Build.0 = Debug|x64
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Debug|x64.Deploy.0 = Debug|x64
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Debug|x86.ActiveCfg = Debug|Win32
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Debug|x86.Build.0 = Debug|Win32
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Debug|x86.Deploy.0 = Debug|Win32
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Release|ARM.ActiveCfg = Release|ARM
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Release|ARM.Build.0 = Release|ARM
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Release|ARM.Deploy.0 = Release|ARM
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Release|x64.ActiveCfg = Release|x64
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Release|x64.Build.0 = Release|x64
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Release|x64.Deploy.0 = Release|x64
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Release|x86.ActiveCfg = Release|Win32
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Release|x86.Build.0 = Release|Win32
+		{0996493E-47A8-4622-A246-6AD403A4AE6C}.Release|x86.Deploy.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{16B254B4-C8A5-4285-ADF1-FA157752F918} = {667B7E3C-29E4-4743-A269-3D123949DBC8}
+		{0513725B-BFDE-4D06-A971-D6AB3C0824B1} = {667B7E3C-29E4-4743-A269-3D123949DBC8}
+	EndGlobalSection
+EndGlobal

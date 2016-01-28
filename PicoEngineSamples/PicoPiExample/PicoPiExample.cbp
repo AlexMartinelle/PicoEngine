@@ -36,12 +36,14 @@
 			<Add directory="/opt/vc/include" />
 			<Add directory="/opt/vc/include/interface/vcos/pthreads" />
 			<Add directory="/opt/vc/include/interface/vmcs_host/linux" />
+			<Add directory="/usr/include/AL" />
 		</Compiler>
 		<Linker>
 			<Add library="/opt/vc/lib/libGLESv2.so" />
 			<Add library="/opt/vc/lib/libEGL.so" />
 			<Add library="/opt/vc/lib/libbcm_host.so" />
 			<Add library="rt" />
+			<Add library="/usr/lib/arm-linux-gnueabihf/libopenal.so.1" />
 		</Linker>
 		<Unit filename="PicoEngineSamples.cpp" />
 		<Unit filename="picoengine.cpp" />

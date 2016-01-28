@@ -38,11 +38,123 @@ struct engine {
 	struct saved_state state;
 };
 
+class AndroidWrapper : public CogitareComputing::Pico::IAndroidWrapper
+{
+	static const int AccelerometerLooperId = LOOPER_ID_USER + 1;
+public:
+	AndroidWrapper(android_app* androidApp)
+		: app(androidApp)
+		, windowInitialised(false)
+		, windowTerminated(false)
+		, windowPause(false)
+	{
+		app->userData = this;
+
+		// We are starting with a previous saved state; restore from it.
+		if (androidApp != nullptr && androidApp->savedState != nullptr)
+			state = *(struct saved_state*) androidApp->savedState;
+	}
+
+	virtual ~AndroidWrapper() {}
+
+
+	bool Pump() override
+	{
+		return !windowTerminated;
+	}
+
+	bool HasKey(int k)
+	{
+		return false;
+	}
+
+	bool GetAsyncKeyState(char rk) override
+	{
+		return false;
+	}
+
+	bool ProcessEvents(int looperId) override
+	{
+		if (looperId == AccelerometerLooperId)
+		{
+			ASensorEvent event;
+			while (ASensorEventQueue_getEvents(sensorEventQueue, &event, 1) > 0) {
+			}
+		}
+		return true;
+	}
+
+	void PrepareAccelerometer()
+	{
+		//// Prepare to monitor accelerometer
+		//sensorManager = ASensorManager_getInstance();
+		//accelerometerSensor = ASensorManager_getDefaultSensor(sensorManager,
+		//	ASENSOR_TYPE_ACCELEROMETER);
+		//sensorEventQueue = ASensorManager_createEventQueue(sensorManager,
+		//	app->looper, AccelerometerLooperId, NULL, NULL);
+	}
+
+	android_app* AndroidApp() const override
+	{
+		return app;
+	}
+
+	int Width() const
+	{
+		if (app == nullptr || app->window == nullptr)
+			return 0;
+
+		return ANativeWindow_getWidth(app->window);
+	}
+
+	int Height() const
+	{
+		if (app == nullptr || app->window == nullptr)
+			return 0;
+
+		return ANativeWindow_getHeight(app->window);
+	}
+
+	bool WaitForInitialization()
+	{
+		while (!windowInitialised)
+		{
+			// Read all pending events.
+			int ident;
+			int events;
+			struct android_poll_source* source;
+
+			while ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0)
+			{
+				// Process this event.
+				if (source != nullptr)
+					source->process(app, source);
+
+				// Check if we are exiting.
+				if (app->destroyRequested != 0) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	struct android_app* app;
+	bool windowInitialised;
+	bool windowTerminated;
+	bool windowPause;
+
+	ASensorEventQueue* sensorEventQueue;
+
+	struct saved_state state;
+};
+
 static int32_t engine_handle_input(struct android_app* app, AInputEvent* event) {
-	struct engine* engine = (struct engine*)app->userData;
+	AndroidWrapper* w = reinterpret_cast<AndroidWrapper*>(app->userData);
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
-		engine->state.x = AMotionEvent_getX(event, 0);
-		engine->state.y = AMotionEvent_getY(event, 0);
+		w->state.x = AMotionEvent_getX(event, 0);
+		w->state.y = AMotionEvent_getY(event, 0);
 		return 1;
 	}
 	return 0;
@@ -53,25 +165,30 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event) 
 */
 
 static void engine_handle_cmd(struct android_app* app, int32_t cmd) {
-	struct engine* engine = (struct engine*)app->userData;
+	AndroidWrapper* w = reinterpret_cast<AndroidWrapper*>(app->userData);
 	switch (cmd) {
 	case APP_CMD_SAVE_STATE:
 		// The system has asked us to save our current state.  Do so.
-		engine->app->savedState = malloc(sizeof(struct saved_state));
-		*((struct saved_state*)engine->app->savedState) = engine->state;
-		engine->app->savedStateSize = sizeof(struct saved_state);
+		w->app->savedState = malloc(sizeof(struct saved_state));
+		*((struct saved_state*)w->app->savedState) = w->state;
+		w->app->savedStateSize = sizeof(struct saved_state);
 		break;
 	case APP_CMD_INIT_WINDOW:
 		// The window is being shown, get it ready.
-		if (engine->app->window != NULL) {
-			engine->windowInitialised = true;
+		if (w->app->window != NULL) {
+			w->windowInitialised = true;
 		}
 		break;
 	case APP_CMD_TERM_WINDOW:
+		// The window is being hidden or closed, clean it up.
+		if (w->app->window != NULL) {
+			w->windowTerminated = true;
+		}
 		break;
 	case APP_CMD_GAINED_FOCUS:
 		break;
 	case APP_CMD_LOST_FOCUS:
+		w->windowPause = true;
 		break;
 	}
 }
@@ -81,43 +198,8 @@ static void engine_handle_cmd(struct android_app* app, int32_t cmd) {
 * android_native_app_glue.  It runs in its own thread, with its own
 * event loop for receiving input events and doing other things.
 */
-void android_main(struct android_app* state) {
-	struct engine engine;
-
-	memset(&engine, 0, sizeof(engine));
-	state->userData = &engine;
-	state->onAppCmd = engine_handle_cmd;
-	state->onInputEvent = engine_handle_input;
-	engine.app = state;
-
-
-	if (state->savedState != NULL) {
-		// We are starting with a previous saved state; restore from it.
-		engine.state = *(struct saved_state*)state->savedState;
-	}
-
-	while (!engine.windowInitialised)
-	{
-		// Read all pending events.
-		int ident;
-		int events;
-		struct android_poll_source* source;
-
-		while ((ident = ALooper_pollAll(0, NULL, &events,
-			(void**)&source)) >= 0) {
-
-			// Process this event.
-			if (source != NULL) {
-				source->process(state, source);
-			}
-
-			// Check if we are exiting.
-			if (state->destroyRequested != 0) {
-				return;
-			}
-		}
-	}
-
+void android_main(struct android_app* state)
+{
 	//Shaders...
 	const std::string vs = "								  \n\
 			uniform mat4 mvp;								  \n\
@@ -155,8 +237,18 @@ void android_main(struct android_app* state) {
 				}																   \n\
 			}";
 
+	AndroidWrapper wrapper(state);
+	state->onAppCmd = engine_handle_cmd;
+	state->onInputEvent = engine_handle_input;
+
+	wrapper.PrepareAccelerometer();
+
+	wrapper.WaitForInitialization();
+
 	//The example...
-	CogitareComputing::Pico::Engine picoEngine("LD33", 640, 480, 60, vs, fs, CogitareComputing::Pico::SystemSpecificData(engine.app));
+	CogitareComputing::Pico::Engine picoEngine("LD33", 640, 480, 60, vs, fs, CogitareComputing::Pico::SystemSpecificData(&wrapper));
+	picoEngine.PlayOggMusic("trudelutt2.ogg", false);
+	auto sound = picoEngine.GetSound("powerup.wav");
 	auto msh = picoEngine.LoadMesh("picocube.obj");
 	auto gob = std::make_shared<CogitareComputing::Pico::SimpleGameObject>(msh);
 	picoEngine.AddGameObject(gob);
@@ -164,6 +256,7 @@ void android_main(struct android_app* state) {
 	gob->SetPosition(CogitareComputing::Pico::Vec3(0.0f, 0.0f, 2.0f));
 	picoEngine.SetLight(CogitareComputing::Pico::Vec3(1.0f, 1.0f, 1.0f));
 	auto angle = 0.0f;
+	sound->Play(false);
 	picoEngine.Run([&picoEngine, &gob, &angle](double elapsed)
 	{
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
